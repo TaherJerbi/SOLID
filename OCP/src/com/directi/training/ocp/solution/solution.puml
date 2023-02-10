@@ -1,0 +1,18 @@
+@startuml Resource
+abstract class Resource {
+    {abstract} int findFreeSlot()
+    {abstract} void markSlotBusy(id:int)
+    {abstract} void markSlotFree(id:int)
+}
+class ResourceAllocator
+{
+    +int allocate(resource:Resource)
+    +void free(resource:Resource,resourceId:int)
+}
+class SpaceResource extends Resource{
+}
+class TimeResource extends Resource{
+}
+ResourceAllocator -- Resource
+
+@enduml

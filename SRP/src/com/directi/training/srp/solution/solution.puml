@@ -1,21 +1,43 @@
 @startuml Car
-class Car {
-    -_id
-    -_model
-    -_brand
+interface Comparable{
+    +int compareTo()
+}
+class Car implements Comparable{
+    -_id:String
+    -_model:String
+    -_brand:String
     ~Car(id:String, model:String, brand:String)
-    +getId()
-    +getModel()
-    +getBrand()
-    +toString()
-    +compareTo(car:Car)
+    +String getId()
+    +String getModel()
+    +String getBrand()
+    +String toString()
+    +int compareTo(car:Car)
 }
 class CarManager
 {   
-    -cars
+    -cars:List<Car>
     ~CarManager(cars:List<Car>)
-    +getCarsNames()
-    +getBestCar()
+    +String getCarsNames()
+    +Car getBestCar()
 }
-CarManager--Car
+class CarRepository 
+{
+    -_carsDb:List<Car>
+    +getById(carId:String)
+    +getCars()
+}
+class ListComparer 
+{
+    +{static} T getBest(list:List<T>)
+}
+class ListFormatter {
+    +{static} String formatList(list:List<T>)
+}
+
+CarManager o-- Car
+CarRepository o-- Car
+CarManager -- CarRepository
+CarManager -- ListComparer
+CarManager -- ListFormatter
+
 @enduml

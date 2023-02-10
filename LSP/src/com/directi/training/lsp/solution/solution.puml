@@ -1,0 +1,28 @@
+@startuml LSP
+class Pool
+{
+    + void run()
+    - void quack(ducks:Toy[])
+    - void swim(ducks:Toy[])
+    + {static} void main(args:String[])
+}
+ interface Toy {
+    + void swim()
+    + void quack()
+}
+class Duck implements Toy
+class ElectronicDuckAction implements Toy{
+    -duck : ElectronicDuck
+    ~ ElectronicDuckAction()
+}
+class ElectronicDuck extends Duck {
+    -_on : boolean
+    + void turnOn()
+    + void turnOff()
+}
+Pool -- ElectronicDuck
+Pool -- ElectronicDuckAction
+ElectronicDuckAction *-- ElectronicDuck
+
+
+@enduml

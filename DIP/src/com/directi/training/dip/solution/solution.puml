@@ -1,0 +1,23 @@
+@startuml DIP
+interface DBInterface {
+    +int write(input :String)
+}
+class EncodingModule {
+    - _myDB :DBInterface
+    ~EncodingModule(db:DBInterface)
+    void encodeWithFiles(reader:BufferedReader,writer:BufferedWriter)
+    void encodeBasedOnNetworkAndDatabase()
+}
+class EncodingModuleClient
+{
+    + {static} void main(args:String[])
+}
+class MyDatabase implements DBInterface
+{
+    - {static}  _data : Map<Integer, String>
+    - {static}  _count : int
+    + int write(inputString :String)
+}
+EncodingModule *-- DBInterface
+EncodingModuleClient -- EncodingModule
+@enduml
