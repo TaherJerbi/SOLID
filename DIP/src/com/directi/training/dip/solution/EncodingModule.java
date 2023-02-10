@@ -7,24 +7,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.Writer;
 import java.net.URL;
 import java.util.Base64;
 
 public class EncodingModule {
     private DBInterface _myDB;
 
-    public EncodingModule(DBInterface db) {
+    public EncodingModule(DBInterface db) throws IOException {
         _myDB = db;
     }
-    
-    public void encodeWithFiles() throws IOException {
-        BufferedReader reader = null;
-        BufferedWriter writer = null;
+
+    public void encodeWithFiles(BufferedReader reader, BufferedWriter writer) throws IOException {
         try {
-            reader = new BufferedReader(
-                    new FileReader("DIP/src/com/directi/training/dip/exercise/beforeEncryption.txt"));
-            writer = new BufferedWriter(
-                    new FileWriter("DIP/src/com/directi/training/dip/exercise/afterEncryption.txt"));
             String aLine;
             while ((aLine = reader.readLine()) != null) {
                 String encodedLine = Base64.getEncoder().encodeToString(aLine.getBytes());
